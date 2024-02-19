@@ -1,0 +1,15 @@
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\bin\Debug\net8.0\cv03.exe
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\bin\Debug\net8.0\cv03.deps.json
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\bin\Debug\net8.0\cv03.runtimeconfig.json
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\bin\Debug\net8.0\cv03.dll
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\bin\Debug\net8.0\cv03.pdb
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.AssemblyInfoInputs.cache
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.AssemblyInfo.cs
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.csproj.CoreCompileInputs.cache
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.sourcelink.json
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.dll
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\refint\cv03.dll
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.pdb
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\cv03.genruntimeconfig.cache
+C:\Users\HonzaNTB\Dokumenty\programování\C#\cv03\obj\Debug\net8.0\ref\cv03.dll
