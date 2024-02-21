@@ -1,35 +1,89 @@
-﻿using System.Globalization;
-using System.Xml.XPath;
+﻿ Console.WriteLine("Zadejte počet řádků matice A:");
+        int rowsa = int.Parse(Console.ReadLine());
 
-Matrix A = new Matrix(1,2,3,4);
-Matrix B = new Matrix(5,6,7,8);
+        Console.WriteLine("Zadejte počet sloupců matice A:");
+        int colsa = int.Parse(Console.ReadLine());
 
-Console.WriteLine("A:\n{0}", A, "\n");
+        Matrix A = new Matrix(rowsa, colsa);
+
+        for (int i = 0; i < rowsa; i++)
+        {
+            for (int j = 0; j < colsa; j++)
+            {
+                Console.WriteLine($"Zadejte prvek pro řádek {i + 1} a sloupec {j + 1}:");
+                int value = int.Parse(Console.ReadLine());
+                A.AddData(i, j, value);
+            }
+        }
+
+        Console.WriteLine("Matice:");
+        A.Print();
+
+         Console.WriteLine("Zadejte počet řádků matice:");
+        int rowsb = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Zadejte počet sloupců matice:");
+        int colsb = int.Parse(Console.ReadLine());
+
+        Matrix B = new Matrix(rowsb, colsb);
+
+        for (int i = 0; i < rowsb; i++)
+        {
+            for (int j = 0; j < colsb; j++)
+            {
+                Console.WriteLine($"Zadejte prvek pro řádek {i + 1} a sloupec {j + 1}:");
+                int value = int.Parse(Console.ReadLine());
+                B.AddData(i, j, value);
+            }
+        }
+
+        Console.WriteLine("Matice:");
+        B.Print();
+
+/* Console.WriteLine("A:\n{0}", A, "\n");
 Console.WriteLine("B:\n{0}", B, "\n");
 Console.WriteLine("A+B:\n{0}", A+B);
 Console.WriteLine("A*B:\n{0}", A*B);
 Console.WriteLine("A==B:\n{0}", A==B);
-Console.WriteLine("A!=B:\n{0}", A!=B);
+Console.WriteLine("A!=B:\n{0}", A!=B); */
 
 public class Matrix
 {
-    public double[,] ma;
+    private int[,] data;
 
-    public Matrix(double a, double b, double c, double d)
+    public Matrix(int rows, int cols)
     {
-        ma = new double[2, 2];
-        ma[0, 0] = a;
-        ma[0, 1] = b;
-        ma[1, 0] = c;
-        ma[1, 1] = d;
+        data = new int[rows, cols];
     }
 
-    public static Matrix operator +(Matrix a, Matrix b){
+    public void AddData(int row, int col, int value)
+    {
+        data[row, col] = value;
+    }
+
+    public void Print()
+    {
+        for (int i = 0; i < data.GetLength(0); i++)
+        {
+            for (int j = 0; j < data.GetLength(1); j++)
+            {
+                Console.Write(data[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+
+
+    public static Matrix operator +(XXX){
         return new Matrix(
-            a.ma[0,0] + b.ma[0,0],
-            a.ma[0,1] + b.ma[0,1],
-            a.ma[1,0] + b.ma[1,0],
-            a.ma[1,1] + b.ma[1,1]);
+            for (int i = 0; i < data.GetLength(0); i++)
+            {
+                for (int j = 0; j < data.GetLength(1); j++)
+                {
+                    Console.Write(data[i, j] + "\t");
+                }
+                Console.WriteLine();
+            });
     }
 
     public static Matrix operator -(Matrix a, Matrix b){
@@ -48,7 +102,7 @@ public class Matrix
             (a.ma[1,0] * b.ma[0,0])+(a.ma[1,1] * b.ma[1,0]),
             (a.ma[1,0] * b.ma[0,1])+(a.ma[1,1] * b.ma[1,1]));
     }
-
+/*
     public static bool operator ==(Matrix a, Matrix b){
 
         if( a.ma[0,0] != b.ma[0,0] &&
@@ -73,5 +127,5 @@ public class Matrix
     public override string ToString()
     {
         return string.Format("[{0}, {1}]\n[{2}, {3}]", ma[0, 0], ma[0, 1], ma[1, 0], ma[1, 1]);
-    }
+    } */
 }
