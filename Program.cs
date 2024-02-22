@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
+using System.Runtime.CompilerServices;
 
 Console.WriteLine("Zadejte počet řádků matice A:");
-        int rows_a = 3;
+        int rows_a = 2;
         //int.Parse(Console.ReadLine());
 
         Console.WriteLine("Zadejte počet sloupců matice A:");
@@ -28,7 +29,7 @@ Console.WriteLine("Zadejte počet řádků matice A:");
         //int.Parse(Console.ReadLine());
 
         //Console.WriteLine("Zadejte počet sloupců matice:");
-        int cols_b = 3;
+        int cols_b = 2;
         //int.Parse(Console.ReadLine());
 
         Matrix B = new Matrix(rows_b, cols_b);
@@ -45,7 +46,6 @@ Console.WriteLine("Zadejte počet řádků matice A:");
 
         Console.WriteLine("Matice B:");
         B.Print();
-
 
         Console.WriteLine("Matice A+B");
         Matrix C = new Matrix(rows_a, cols_a);
@@ -70,6 +70,39 @@ Console.WriteLine("Zadejte počet řádků matice A:");
         bool G = A != B;
         Console.WriteLine(G);
 
+        Console.WriteLine("Kterou matici chcete vypočítat determinant?");
+        Console.WriteLine("Zadejte písmeno matice (A-E): ");
+        char xDeterminant = char.ToUpper(Console.ReadLine()[0]);
+
+        double det = 0;
+
+        switch (xDeterminant)
+        {
+            case 'A':
+                det = Matrix.Determinant(A);
+                break;
+            
+            case 'B':
+                det = Matrix.Determinant(B);
+                break;
+
+            case 'C':
+                det = Matrix.Determinant(C);
+                break;
+
+            case 'D':
+                det = Matrix.Determinant(D);
+                break;
+
+            case 'E':
+                det = Matrix.Determinant(E);
+                break;
+
+            default:
+                throw new ArgumentException("Neexistující matice!");
+        }
+
+        Console.WriteLine($"Determinant matice {xDeterminant} je: {det}");
 public class Matrix
 {
     private double[,] data;
@@ -202,10 +235,47 @@ public class Matrix
                     return true;
         return false;
     }
-    
-    public static double Determinant(){
 
+    public static double Determinant(Matrix a){
 
+        int rows_a = a.data.GetLength(0);
+        int cols_a = a.data.GetLength(1);
+        double[,] matrix = a.data;
 
+        if (a.data.GetLength(0) != a.data.GetLength(1))
+        {
+            throw new ArgumentException("Matice není čtvercová.");
+        }
+
+        if (a.data.GetLength(0) == 1)
+        {
+            return matrix[0, 0]; 
+        }
+        else if (n == 2)
+        {
+            return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+        }
+        else
+        {
+            double det = 0;
+
+            for (int j = 0; j < n; j++)
+            {
+                double[,] subMatrix = new double[n - 1, n - 1];
+                for (int i = 1; i < n; i++)
+                {
+                    for (int k = 0; k < n; k++)
+                    {
+                        if (k < j)
+                            subMatrix[i - 1, k] = matrix[i, k];
+                        else if (k > j)
+                            subMatrix[i - 1, k - 1] = matrix[i, k];
+                    }
+                }
+                
+                det += (j % 2 == 0 ? 1 : -1) * matrix[0, j] * Determinant(subMatrix);
+            }
+            return det;
+        }
     }
 }
