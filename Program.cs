@@ -1,62 +1,85 @@
-﻿ Console.WriteLine("Zadejte počet řádků matice A:");
-        int rowsa = int.Parse(Console.ReadLine());
+﻿using System.Globalization;
+
+Console.WriteLine("Zadejte počet řádků matice A:");
+        int rows_a = 3;
+        //int.Parse(Console.ReadLine());
 
         Console.WriteLine("Zadejte počet sloupců matice A:");
-        int colsa = int.Parse(Console.ReadLine());
+        int cols_a = 3;
+        //int.Parse(Console.ReadLine());
 
-        Matrix A = new Matrix(rowsa, colsa);
+        Matrix A = new Matrix(rows_a, cols_a);
 
-        for (int i = 0; i < rowsa; i++)
+        for (int i = 0; i < rows_a; i++)
         {
-            for (int j = 0; j < colsa; j++)
+            for (int j = 0; j < cols_a; j++)
             {
-                Console.WriteLine($"Zadejte prvek pro řádek {i + 1} a sloupec {j + 1}:");
-                int value = int.Parse(Console.ReadLine());
+                //Console.WriteLine($"Zadejte prvek pro řádek {i + 1} a sloupec {j + 1}:");
+                double value = i+j+1;
                 A.AddData(i, j, value);
             }
         }
 
-        Console.WriteLine("Matice:");
+        Console.WriteLine("Matice B:");
         A.Print();
 
-         Console.WriteLine("Zadejte počet řádků matice:");
-        int rowsb = int.Parse(Console.ReadLine());
+        //Console.WriteLine("Zadejte počet řádků matice:");
+        int rows_b = 3;
+        //int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Zadejte počet sloupců matice:");
-        int colsb = int.Parse(Console.ReadLine());
+        //Console.WriteLine("Zadejte počet sloupců matice:");
+        int cols_b = 3;
+        //int.Parse(Console.ReadLine());
 
-        Matrix B = new Matrix(rowsb, colsb);
+        Matrix B = new Matrix(rows_b, cols_b);
 
-        for (int i = 0; i < rowsb; i++)
+        for (int i = 0; i < rows_b; i++)
         {
-            for (int j = 0; j < colsb; j++)
+            for (int j = 0; j < cols_b; j++)
             {
-                Console.WriteLine($"Zadejte prvek pro řádek {i + 1} a sloupec {j + 1}:");
-                int value = int.Parse(Console.ReadLine());
+                //Console.WriteLine($"Zadejte prvek pro řádek {i + 1} a sloupec {j + 1}:");
+                double value = i+j+i;
                 B.AddData(i, j, value);
             }
         }
 
-        Console.WriteLine("Matice:");
+        Console.WriteLine("Matice B:");
         B.Print();
 
-/* Console.WriteLine("A:\n{0}", A, "\n");
-Console.WriteLine("B:\n{0}", B, "\n");
-Console.WriteLine("A+B:\n{0}", A+B);
-Console.WriteLine("A*B:\n{0}", A*B);
-Console.WriteLine("A==B:\n{0}", A==B);
-Console.WriteLine("A!=B:\n{0}", A!=B); */
+
+        Console.WriteLine("Matice A+B");
+        Matrix C = new Matrix(rows_a, cols_a);
+        C = A + B;
+        C.Print();
+
+        Console.WriteLine("Matice A-B");
+        Matrix D = new Matrix(rows_a, cols_a);
+        D = A - B;
+        D.Print();
+                
+        Console.WriteLine("Matice A*B");
+        Matrix E = new Matrix(rows_a, cols_a);
+        E = A * B;
+        E.Print();
+
+        Console.WriteLine("Jsou matice stejné?");
+        bool F = A == B;
+        Console.WriteLine(F);
+
+        Console.WriteLine("Jsou matice různé?");
+        bool G = A != B;
+        Console.WriteLine(G);
 
 public class Matrix
 {
-    private int[,] data;
+    private double[,] data;
 
     public Matrix(int rows, int cols)
     {
-        data = new int[rows, cols];
+        data = new double[rows, cols];
     }
 
-    public void AddData(int row, int col, int value)
+    public void AddData(int row, int col, double value)
     {
         data[row, col] = value;
     }
@@ -67,65 +90,122 @@ public class Matrix
         {
             for (int j = 0; j < data.GetLength(1); j++)
             {
-                Console.Write(data[i, j] + "\t");
+                string val_M = data[i,j].ToString();
+                Console.Write(val_M + "\t");
             }
             Console.WriteLine();
         }
     }
 
+// Přetěžování funkcí
 
-    public static Matrix operator +(XXX){
-        return new Matrix(
-            for (int i = 0; i < data.GetLength(0); i++)
+    public static Matrix operator +(Matrix A, Matrix B)
+    {
+        int rows = A.data.GetLength(0);
+        int cols = A.data.GetLength(1);
+
+        if (rows != B.data.GetLength(0) || cols != B.data.GetLength(1))
+            throw new ArgumentException("Matice mají různé rozměry a nelze je sečíst.");
+
+        Matrix result = new Matrix(rows, cols);
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
             {
-                for (int j = 0; j < data.GetLength(1); j++)
-                {
-                    Console.Write(data[i, j] + "\t");
-                }
-                Console.WriteLine();
-            });
-    }
+                result.data[i, j] = A.data[i, j] + B.data[i, j];
+            }
+        }
 
-    public static Matrix operator -(Matrix a, Matrix b){
-        return new Matrix(
-            a.ma[0,0] - b.ma[0,0],
-            a.ma[0,1] - b.ma[0,1],
-            a.ma[1,0] - b.ma[1,0],
-            a.ma[1,1] - b.ma[1,1]);
+        return result;
+    }
+    
+    public static Matrix operator -(Matrix A, Matrix B){
+    
+        int rows = A.data.GetLength(0);
+        int cols = A.data.GetLength(1);
+        
+        if (rows != B.data.GetLength(0) || cols != B.data.GetLength(1))
+            throw new ArgumentException("Matice mají různé rozměry a nejdou odčítat.");
+
+        Matrix result = new Matrix(rows, cols);
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                result.data[i,j] = A.data[i, j] - B.data[i, j];
+            }
+        }
+
+        return result;
     }
 
     public static Matrix operator *(Matrix a, Matrix b){
     
-        return new Matrix(
-            (a.ma[0,0] * b.ma[0,0])+(a.ma[0,1] * b.ma[1,0]),
-            (a.ma[0,0] * b.ma[0,1])+(a.ma[0,1] * b.ma[1,1]),
-            (a.ma[1,0] * b.ma[0,0])+(a.ma[1,1] * b.ma[1,0]),
-            (a.ma[1,0] * b.ma[0,1])+(a.ma[1,1] * b.ma[1,1]));
+        int rows_a = a.data.GetLength(0);
+        int cols_a = a.data.GetLength(1);
+        int rows_b = b.data.GetLength(0);
+        int cols_b = b.data.GetLength(1);
+
+        if (cols_a != rows_b)
+            throw new ArgumentException("Nelze násobit - Rozdílný počet sloupců mat_A a řádků mat_B");
+
+        Matrix result = new Matrix(rows_a, cols_b);
+
+        for(int i = 0; i < rows_a; i++)
+        {
+            for(int j = 0; j < cols_b; j++)
+            {
+                double sum = 0;
+
+                for(int k = 0; k < cols_a; k++)
+                {
+                    sum += a.data[i,k] * b.data[k,j];
+                }
+                result.data[i,j] = sum;
+            }
+        }
+        return result;
     }
-/*
+
     public static bool operator ==(Matrix a, Matrix b){
+    
+        int rows_a = a.data.GetLength(0);
+        int cols_a = a.data.GetLength(1);
+        int rows_b = b.data.GetLength(0);
+        int cols_b = b.data.GetLength(1);
 
-        if( a.ma[0,0] != b.ma[0,0] &&
-            a.ma[0,1] != b.ma[0,1] &&
-            a.ma[1,0] != b.ma[1,0] &&
-            a.ma[1,1] != b.ma[1,1]  )
+        if(rows_a != rows_b || cols_a != cols_b)
+            throw new ArgumentException("Rozdílné dimenze matic.");
 
+        for (int i = 0; i < rows_a; i++)
+            for (int j = 0; j < cols_a; j++)
+                if(a.data[i,j] != b.data[i,j])
+                    return false;
         return true;
-        else return false;
     }
 
     public static bool operator !=(Matrix a, Matrix b){
+    
+        int rows_a = a.data.GetLength(0);
+        int cols_a = a.data.GetLength(1);
+        int rows_b = b.data.GetLength(0);
+        int cols_b = b.data.GetLength(1);
 
-        if( a.ma[0,0] != b.ma[0,0] &&
-            a.ma[0,1] != b.ma[0,1] &&
-            a.ma[1,0] != b.ma[1,0] &&
-            a.ma[1,1] != b.ma[1,1]  )
+        if(rows_a != rows_b || cols_a != cols_b)
+            throw new ArgumentException("Rozdílné dimenze matic.");
 
-        return true;
-        else return false;  
+        for (int i = 0; i < rows_a; i++)
+            for (int j = 0; j < cols_a; j++)
+                if(a.data[i,j] != b.data[i,j])
+                    return true;
+        return false;
     }
-    public override string ToString()
-    {
-        return string.Format("[{0}, {1}]\n[{2}, {3}]", ma[0, 0], ma[0, 1], ma[1, 0], ma[1, 1]);
-    } */
+    
+    public static double Determinant(){
+
+
+
+    }
 }
